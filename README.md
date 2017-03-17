@@ -13,4 +13,6 @@ next steps:
 
 
 Known Bugs:
-- doesn't space the pedals out, so many accidentals at once in the music might create unplayableness
+1. doesn't space the pedals out, so many accidentals at once in the music might create unplayableness
+2. doesn't highlight unplayable stuff in red
+3. doesn't do enharmonics
