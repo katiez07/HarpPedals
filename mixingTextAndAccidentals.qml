@@ -34,7 +34,8 @@ MuseScore {
             var endTick;
             var fullScore = false;
 			
-			//var keyPedals = [0, 0, 0, 0, 0, 0, 0]
+			var keyPedals = [0, 0, 0, 0, 0, 0, 0]
+			var curPedals = [0, 0, 0, 0, 0, 0, 0]
 			
             if (!cursor.segment) { // no selection
                   fullScore = true;
@@ -73,12 +74,12 @@ MuseScore {
                                           // iterate through all grace chords
                                           var notes = graceChords[i].notes;
                                           for (var j = 0; j < notes.length; j++)
-                                                func(notes[j]);
+                                                func(notes[j], curPedals);
                                     }
                                     var notes = cursor.element.notes;
                                     for (var i = 0; i < notes.length; i++) {
                                           var note = notes[i];
-                                          pedalText = func(note);
+                                          pedalText = func(note, curPedals);
                                     }
                               }
 							  
@@ -94,22 +95,31 @@ MuseScore {
             }
       }
 
-      function colorRedIfAcc(note) {
-            if (note.accidental) {
+      function colorRedIfAcc(note, curPedals) {
+		// PROBLEM: array curPedals doesn't work right
+	  
+			if (note.accidental) {
+				if ((note.accidentalType == -1) && ((note.pitch == 10) || (note.pitch == 22) || (note.pitch == 34) || (note.pitch == 46) 
+				|| (note.pitch == 58) || (note.pitch == 70) || (note.pitch == 82) || (note.pitch == 94) || (note.pitch == 106) || (note.pitch == 118)))
+					curPedals[2] = -1;
+				else if ((note.accidentalType == 0) && ((note.pitch == 11) || (note.pitch == 23) || (note.pitch == 35) || (note.pitch == 47)
+				|| (note.pitch == 59) || (note.pitch == 71) || (note.pitch == 83) || (note.pitch == 95) || (note.pitch == 107) || (note.pitch == 119)))
+					curPedals[2] = 0;
+			
+			
 				//if ((note.pitch == 6) || (note.pitch == 78))
-				if (note.accidentalType == 1)
-					return "pedal";
-				return "hi";
+				else if ((note.accidentalType == 1) && ((note.pitch == 6) || (note.pitch == 18) || (note.pitch == 30) || (note.pitch == 42) || (note.pitch == 54)
+				|| (note.pitch == 66) || (note.pitch == 78) || (note.pitch == 90) || (note.pitch == 102) || (note.pitch == 114) || (note.pitch == 126)))
+					curPedals[4] = 1;
+				//else if ((note.accidentalType) == 1 && ((note.pitch == 70) || (note.pitch == 78))
+					//return "pedal";
+				else
+					curPedals[4] = curPedals[4];
             }
-
-            for (var i = 0; i < note.dots.length; i++) {
-                  if (note.dots[i]) {
-                        if (note.dots[i].color == black)
-                              note.dots[i].color = red;
-                        else
-                              note.dots[i].color = black;
-                        }
-                  }
+			
+			if (curPedals[4] == 1)
+				return "pedal";
+			
 			return "";
          }
 
