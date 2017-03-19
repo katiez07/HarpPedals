@@ -71,7 +71,7 @@ MuseScore {
             for (var staff = startStaff; staff <= endStaff; staff++) {
                   for (var voice = 0; voice < 4; voice++) {
                         cursor.rewind(1); // sets voice to 0
-                        cursor.voice = voice; //voice has to be set after goTo
+                        cursor.voice = voice; // voice has to be set after goTo
                         cursor.staffIdx = staff;
 
                         if (fullScore)
@@ -85,32 +85,38 @@ MuseScore {
                                           // iterate through all grace chords
                                           var notes = graceChords[i].notes;
                                           for (var j = 0; j < notes.length; j++)
-                                                func(notes[j], curPedals);
+                                                func(notes[j], curPedals, keyPedals);
                                     }
                                     var notes = cursor.element.notes;
-                                    for (var i = 0; i < notes.length; i++) {
-                                          var note = notes[i];
-                                          pedalText = func(note, curPedals);
-                                    }
+                                    for (var i = 0; i < notes.length; i++){
+                                          pedalText = func(notes[i], curPedals, keyPedals);
+										  var text = newElement(Element.STAFF_TEXT);
+										  text.text = pedalText;
+										  text.pos.x = 0;  //pedal text below note
+										  text.pos.y = 8.5; //pedal text below note
+										  cursor.add(text);
+									}
                               }
-							  
-							  var text = newElement(Element.STAFF_TEXT);
-							  text.text = pedalText;
-							  text.pos.x = 0;  //pedal text below note
-							  text.pos.y = 8.5; //pedal text below note
-							  cursor.add(text);
-							  
                               cursor.next();
                         }
                   }
             }
       }
 
-      function checkAccidentalPedals(note, curPedals) {
+      function checkPedals(note, curPedals, keyPedals) {
 		var tempPedals = [0, 0, 0, 0, 0, 0, 0]
 		for (var i=0; i<7; i++)
 			tempPedals[i] = curPedals[i];
+			
+		/* // put this once per measure
+		// initially set curPedals as keyPedals
+		for (var k=0; k<7; k++){
+			curPedals[k] = keyPedals[k];
+		}
+		*/
 	  
+	  
+		// check accidental pedals
 		if (note.accidental) {
 				if ((note.accidentalType == 2) && ((note.pitch == 10) || (note.pitch == 22) || (note.pitch == 34) || (note.pitch == 46) 
 				|| (note.pitch == 58) || (note.pitch == 70) || (note.pitch == 82) || (note.pitch == 94) || (note.pitch == 106) || (note.pitch == 118)))
@@ -183,34 +189,76 @@ MuseScore {
 				if (curPedals[j] != tempPedals[j]){
 					if (j == 0){
 						if (note.accidentalType == 1)
-							return "Bsharp";
+							return "D" + qsTranslate("accidental", "Sharp");
 						else if (note.accidentalType == 5)
-							return "Bnat";
+							return "D" + qsTranslate("accidental", "Natural");
 						else if (note.accidentalType == 2)
-							return "Bflat";
+							return "D" + qsTranslate("accidental", "Flat");
 						else
-							return "?";
+							return "x";
 					}
 					else if (j == 1){
-						return "C";
+						if (note.accidentalType == 1)
+							return "C" + qsTranslate("accidental", "Sharp");
+						else if (note.accidentalType == 5)
+							return "C" + qsTranslate("accidental", "Natural");
+						else if (note.accidentalType == 2)
+							return "C" + qsTranslate("accidental", "Flat");
+						else
+							return "x";
 					}
 					else if (j == 2){
-						return "D";
+						if (note.accidentalType == 1)
+							return "B" + qsTranslate("accidental", "Sharp");
+						else if (note.accidentalType == 5)
+							return "B" + qsTranslate("accidental", "Natural");
+						else if (note.accidentalType == 2)
+							return "B" + qsTranslate("accidental", "Flat");
+						else
+							return "x";
 					}
 					else if (j == 3){
-						return "E";
+						if (note.accidentalType == 1)
+							return "E" + qsTranslate("accidental", "Sharp");
+						else if (note.accidentalType == 5)
+							return "E" + qsTranslate("accidental", "Natural");
+						else if (note.accidentalType == 2)
+							return "E" + qsTranslate("accidental", "Flat");
+						else
+							return "x";
 					}
 					else if (j == 4){
-						return "F";
+						if (note.accidentalType == 1)
+							return "F" + qsTranslate("accidental", "Sharp");
+						else if (note.accidentalType == 5)
+							return "F" + qsTranslate("accidental", "Natural");
+						else if (note.accidentalType == 2)
+							return "F" + qsTranslate("accidental", "Flat");
+						else
+							return "x";
 					}
 					else if (j == 5){
-						return "G";
+						if (note.accidentalType == 1)
+							return "G" + qsTranslate("accidental", "Sharp");
+						else if (note.accidentalType == 5)
+							return "G" + qsTranslate("accidental", "Natural");
+						else if (note.accidentalType == 2)
+							return "G" + qsTranslate("accidental", "Flat");
+						else
+							return "x";
 					}
 					else if (j == 6){
-						return "A";
+						if (note.accidentalType == 1)
+							return "A" + qsTranslate("accidental", "Sharp");
+						else if (note.accidentalType == 5)
+							return "A" + qsTranslate("accidental", "Natural");
+						else if (note.accidentalType == 2)
+							return "A" + qsTranslate("accidental", "Flat");
+						else
+							return "x";
 					}
 					else{
-						return "?";
+						return "x";
 					}
 				}
 			}
@@ -224,7 +272,7 @@ MuseScore {
             if (typeof curScore === 'undefined')
                   Qt.quit();
 
-            applyToNotesInSelection(checkAccidentalPedals)
+            applyToNotesInSelection(checkPedals)
 
             Qt.quit();
          }
