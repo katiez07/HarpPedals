@@ -7,7 +7,6 @@ Emerging Scholars research project
 next steps:
 
 2. also check that it matches the key sig
-3. don't write the last pedal change under rests
 
 
 
