@@ -143,93 +143,78 @@ MuseScore {
 		for (var i=0; i<7; i++)
 			tempPedals[i] = curPedals[i];
 			
-		// if there's an accidental on the note, checking to see if it matches the current pedal configuration
+		// if the note has an accidental, set the note's pedal to the new accidental
 		if (note.accidental){
-			// D
-			if (note.tcp % 7 == 5){
-				if (note.accidentalType == 2)
-					curPedals[0] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[0] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[0] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			// C
-			else if (note.tcp % 7 == 0){
-				if (note.accidentalType == 2)
-					curPedals[1] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[1] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[1] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			// B
-			else if (note.tcp % 7 == 2){
-				if (note.accidentalType == 2)
-					curPedals[2] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[2] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[2] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			// E
-			else if (note.tcp % 7 == 4){
-				if (note.accidentalType == 2)
-					curPedals[3] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[3] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[3] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			// F
-			else if (note.tcp % 7 == 6){
-				if (note.accidentalType == 2)
-					curPedals[4] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[4] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[4] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			// G
-			else if (note.tcp % 7 == 1){
-				if (note.accidentalType == 2)
-					curPedals[5] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[5] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[5] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			// A
-			else if (note.tcp % 7 == 3){
-				if (note.accidentalType == 2)
-					curPedals[6] = -1;
-				else if (note.accidentalType == 5)
-					curPedals[6] = 0;
-				else if (note.accidentalType == 1)
-					curPedals[6] = 1;
-				else
-					console.log("unknown accidental type")
-			}
-			else{
-				console.log("unknown tcp")
-			}
+			// flats DCBEFGA
+			if (note.tpc == 9)
+				curPedals[0] = -1;
+			else if (note.tpc == 7)
+				curPedals[1] = -1;
+			else if (note.tpc == 12)
+				curPedals[2] = -1;
+			else if (note.tpc == 11)
+				curPedals[3] = -1;
+			else if (note.tpc == 6)
+				curPedals[4] = -1;
+			else if (note.tpc == 8)
+				curPedals[5] = -1;
+			else if (note.tpc == 10)
+				curPedals[6] = -1;
+				
+			// naturals DCBEFGA
+			else if (note.tpc == 16)
+				curPedals[0] = 0;
+			else if (note.tpc == 14)
+				curPedals[1] = 0;
+			else if (note.tpc == 19)
+				curPedals[2] = 0;
+			else if (note.tpc == 18)
+				curPedals[3] = 0;
+			else if (note.tpc == 13)
+				curPedals[4] = 0;
+			else if (note.tpc == 15)
+				curPedals[5] = 0;
+			else if (note.tpc == 17)
+				curPedals[6] = 0;
+				
+			// sharps DCBEFGA
+			else if (note.tpc == 23)
+				curPedals[0] = 1;
+			else if (note.tpc == 21)
+				curPedals[1] = 1;
+			else if (note.tpc == 26)
+				curPedals[2] = 1;
+			else if (note.tpc == 25)
+				curPedals[3] = 1;
+			else if (note.tpc == 20)
+				curPedals[4] = 1;
+			else if (note.tpc == 22)
+				curPedals[5] = 1;
+			else if (note.tpc == 24)
+				curPedals[6] = 1;
+				
+			else
+				console.log("unknown tpc")
 		}
 			
-		// if there is no accidental on the note, checking if it matches the key sig
+		// else set the note's pedal to the key sig
 		else{
-				
+			if ((note.tpc == 9) || (note.tpc == 16) || (note.tpc == 23))
+				curPedals[0] = keyPedals[0];
+			else if ((note.tpc == 7) || (note.tpc == 14) || (note.tpc == 21))
+				curPedals[1] = keyPedals[1];
+			else if ((note.tpc == 12) || (note.tpc == 19) || (note.tpc == 26))
+				curPedals[2] = keyPedals[2];
+			else if ((note.tpc == 11) || (note.tpc == 18) || (note.tpc == 25))
+				curPedals[3] = keyPedals[3];
+			else if ((note.tpc == 6) || (note.tpc == 13) || (note.tpc == 20))
+				curPedals[4] = keyPedals[4];
+			else if ((note.tpc == 8) || (note.tpc == 15) || (note.tpc == 22))
+				curPedals[5] = keyPedals[5];
+			else if ((note.tpc == 10) || (note.tpc == 17) || (note.tpc == 24))
+				curPedals[6] = keyPedals[6];
+			else
+				console.log("unknown tpc")
 		}
 			
 		// printing pedal changes if there were any
