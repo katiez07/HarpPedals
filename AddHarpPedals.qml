@@ -13,8 +13,8 @@
 //=============================================================================
 
 
-//	This plugin used modified code from the ColorNotes plugin, plus added
-//	code for the pedal-adding functionality.
+//	This plugin used modified code from the ColorNotes plugin and the NoteNames
+//  plugin. I added my own code for implementation of the harp pedals algorithm.
 //  It uses two arrays to keep track of harp pedals, curPedals (for the position 
 //	the pedals are currently in) and keyPedals (for the position the pedals
 //	would be in if they matched the key signature). The pedal ordering is as
@@ -29,14 +29,11 @@ import MuseScore 1.0
 MuseScore {
       version:  "1.0"
       description: "This new plugin tests the modification of code in plugins :)"
-      menuPath: "Plugins.Testing Text And Accidentals.Test Here"
-
-      property variant black : "#000000"
-	  property variant red : "#e21c48"
+      menuPath: "Plugins.Harp Pedals.Add Pedals"
 
       // Apply the given function to all notes in selection
       // or, if nothing is selected, in the entire score
-
+	  
       function applyToNotesInSelection(func) {
             var cursor = curScore.newCursor();
             cursor.rewind(1);
