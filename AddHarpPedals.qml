@@ -221,72 +221,72 @@ MuseScore {
 		for (var j=0; j<7; j++){
 			if (curPedals[j] != tempPedals[j]){
 				if (j == 0){
-					if (note.accidentalType == 1)
-						return "D" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "D" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "D" + qsTranslate("accidental", "Flat");
+					else if (curPedals[j] == 0)
+						return "D" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "D" + qsTranslate("accidental", "Sharp");
 					else
 						return "x";
 				}
 				else if (j == 1){
-					if (note.accidentalType == 1)
-						return "C" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "C" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "C" + qsTranslate("accidental", "Flat");
+					else if (curPedals[j] == 0)
+						return "C" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "C" + qsTranslate("accidental", "Sharp");
 					else
 						return "x";
 				}
 				else if (j == 2){
-					if (note.accidentalType == 1)
-						return "B" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "B" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "B" + qsTranslate("accidental", "Flat");
+					else if (curPedals[j] == 0)
+						return "B" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "B" + qsTranslate("accidental", "Sharp");
 					else
 						return "x";
 				}
 				else if (j == 3){
-					if (note.accidentalType == 1)
-						return "E" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "E" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "E" + qsTranslate("accidental", "Flat");
+					else if (curPedals[j] == 0)
+						return "E" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "E" + qsTranslate("accidental", "Sharp");
 					else
 						return "x";
 				}
 				else if (j == 4){
-					if (note.accidentalType == 1)
-						return "F" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "F" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "F" + qsTranslate("accidental", "Flat");
-					else
+					else if (curPedals[j] == 0)
+						return "F" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "F" + qsTranslate("accidental", "Sharp");
+					else 
 						return "x";
 				}
 				else if (j == 5){
-					if (note.accidentalType == 1)
-						return "G" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "G" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "G" + qsTranslate("accidental", "Flat");
+					else if (curPedals[j] == 0)
+						return "G" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "G" + qsTranslate("accidental", "Sharp");
 					else
 						return "x";
 				}
 				else if (j == 6){
-					if (note.accidentalType == 1)
-						return "A" + qsTranslate("accidental", "Sharp");
-					else if (note.accidentalType == 5)
-						return "A" + qsTranslate("accidental", "Natural");
-					else if (note.accidentalType == 2)
+					if (curPedals[j] == -1)
 						return "A" + qsTranslate("accidental", "Flat");
+					else if (curPedals[j] == 0)
+						return "A" + qsTranslate("accidental", "Natural");
+					else if (curPedals[j] == 1)
+						return "A" + qsTranslate("accidental", "Sharp");
 					else
 						return "x";
 				}
